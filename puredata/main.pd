@@ -1,0 +1,20 @@
+#N canvas 53 538 798 478 10;
+#X obj 142 394 sendOSC;
+#X msg 242 336 connect 127.0.0.1 10000;
+#X msg 240 365 disconnect;
+#X obj 494 -27 dumpOSC 10001;
+#X obj 396 64 print mx;
+#X obj 475 66 print my;
+#X obj 554 69 print mean;
+#X obj 494 20 OSCroute /mx /my /mean;
+#X obj 103 183 vsl 15 128 0 100 0 0 empty empty empty 0 -9 0 10 -262144
+-1 -1 8700 1;
+#X msg 106 347 send /slider1 \$1;
+#X connect 1 0 0 0;
+#X connect 2 0 0 0;
+#X connect 3 0 7 0;
+#X connect 7 0 4 0;
+#X connect 7 1 5 0;
+#X connect 7 2 6 0;
+#X connect 8 0 9 0;
+#X connect 9 0 0 0;
