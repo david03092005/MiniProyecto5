@@ -15,7 +15,7 @@ boolean overBackButton = false;
 void drawBarChart() {
   background(255);
   if (priceButton) {
-    measures = processData();
+    measures = calcMeasures();
     drawMeasureBoxes(measures[0], measures[1], measures[2]); 
     // Dibujar ejes
     line(margin, he - margin, wi + margin, he - margin); // Eje X
@@ -52,34 +52,6 @@ void drawBarChart() {
     textAlign(CENTER, CENTER);
     text("Intervalos de Precios", (wi + margin) / 2, he - margin + 30);
     text("Frecuencia", margin - 65, he / 2);
-    textAlign(CENTER, CENTER);
-    if (overBackButton) {
-      fill(0);
-      rect(800, 50, 100, 50);
-      fill(255);
-      text("BACK", 850, 75);
-    } 
-    else {
-      fill(255);
-      rect(800, 50, 100, 50);
-      fill(0);
-      text("BACK", 850, 75);
-    }
-  }
-  else {
-    textAlign(CENTER, CENTER);
-    if (overPriceButton) {
-      fill(0);
-      rect(50, 50, 100, 50);
-      fill(255);
-      text("PRICE", 100, 75);
-    } 
-    else {
-      fill(255);
-      rect(50, 50, 100, 50);
-      fill(0);
-      text("PRICE", 100, 75);
-    }
   }
 }
 

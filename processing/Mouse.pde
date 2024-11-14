@@ -5,9 +5,17 @@ void mousePressed() {
       priceButton = false;
     }
   }
+  else if(pieButton){
+    if (overBackButton){
+      pieButton = false;
+    }
+  }
   else{
     if (overPriceButton){
       priceButton = true;
+    }
+    else if(overPieButton){
+      pieButton = true;
     }
   }
 }
@@ -19,6 +27,7 @@ void mouseDragged() {
 void mouseMoved(){
   checkButtons();
   checkBack();
+  checkPie();
 }
 
 void mouseReleased() {
@@ -42,7 +51,7 @@ void moveBarPrice() {
 
 
 void checkButtons(){
-  if (mouseX > 50 && mouseX < 150 && mouseY > 50 && mouseY < 100) {
+  if (mouseX > posX && mouseX < posX + X && mouseY > posY && mouseY < posY + Y) {
     overPriceButton = true; 
   }
   else {
@@ -59,6 +68,15 @@ void checkBack(){
   }
 }
 
+void checkPie(){
+  if (mouseX > posX + dist && mouseX < posX + dist + X && mouseY > posY && mouseY < posY + Y) {
+    overPieButton = true; 
+  }
+  else {
+    overPieButton = false;
+  }
+}
+
 void takeBarPrice(){
   for (int i = 0; i < intervals.length; i++) {
     float x = margin + i * barWidth + barWidth / 2;
@@ -70,6 +88,31 @@ void takeBarPrice(){
       selectedBar = i;
       sendPureData(1, "/bng" + str(selectedBar + 1));
       break;
+    }
+  }
+}
+
+void keyPressed() {
+  if (pieButton) {
+    pressPie();
+  }
+}
+
+void pressPie(){
+  if (selectedPiece != -1) {
+    // Usar las flechas para aumentar/disminuir el tamaño
+    float adjustment = 0;
+
+    if (key == CODED) {
+      if (keyCode == UP) {
+        adjustment = 1; // Aumentar tamaño del pedazo
+      } else if (keyCode == DOWN) {
+        adjustment = -1; // Disminuir tamaño del pedazo
+      }
+    }
+
+    if (adjustment != 0) {
+      adjustPieceSize(selectedPiece, adjustment);
     }
   }
 }

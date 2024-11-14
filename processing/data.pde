@@ -1,4 +1,4 @@
-float[] processData() {
+void processData() {
   data = loadTable("Datos_limpios.csv", "header");
   price = new float[data.getRowCount()];
   float suma = 0;
@@ -6,9 +6,18 @@ float[] processData() {
     float valor = data.getFloat(i, "price");
     price[i] = valor;
     suma += valor;
+    
+    String brand = data.getString(i, "phone_brand").toLowerCase();
+    if (phoneBrands.containsKey(brand)) {
+      phoneBrands.put(brand, phoneBrands.get(brand) + 1);
+    }
   }
   float promedio = suma / data.getRowCount();
-  
+  println(promedio);
+}
+
+
+float[] calcMeasures(){
   // Calcular medidas centrales
   float mean = calculateMean();
   float median = calculateMedian();
