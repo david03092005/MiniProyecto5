@@ -11,6 +11,15 @@ void processData() {
     if (phoneBrands.containsKey(brand)) {
       phoneBrands.put(brand, phoneBrands.get(brand) + 1);
     }
+    
+    float ram = data.getFloat(i, "ram");
+    float storage = data.getFloat(i, "storage");
+    if (ram >= 16 && storage >= 512){
+      numParticlesR = numParticlesR + 1;
+    }
+    else if (ram <= 4 && storage <= 64) {
+      numParticlesL = numParticlesL + 1;
+    }
   }
   float promedio = suma / data.getRowCount();
   println(promedio);
