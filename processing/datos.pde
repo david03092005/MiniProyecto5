@@ -40,6 +40,7 @@ float calculateMean() {
   return weightedSum / totalFrequency;
 }
 
+
 float calculateMedian() {
   float totalFrequency = 0;
   for (int f : frequency) {
@@ -66,9 +67,10 @@ float calculateMedian() {
   return lowerLimit + ((medianPosition - cumulativeFrequency) / classFrequency) * intervalWidth;
 }
 
+
 float calculateMode() {
   int maxFrequencyIndex = 0;
-  for (int i = 1; i < frequency.length; i++) {
+  for (int i = 1; i < frequency.length - 1; i++) {
     if (frequency[i] > frequency[maxFrequencyIndex]) {
       maxFrequencyIndex = i;
     }
@@ -81,4 +83,36 @@ float calculateMode() {
   float frequencyAfter = (maxFrequencyIndex < frequency.length - 1) ? frequency[maxFrequencyIndex + 1] : 0;
   
   return lowerLimit + ((freq - frequencyBefore) / ((freq - frequencyBefore) + (freq - frequencyAfter))) * intervalWidth;
+}
+
+
+void makeIntervals() {
+  float minPrice = min(price);
+  float maxPrice = max(price);
+  int intervalL = int((maxPrice - minPrice) / cant);
+  float last = minPrice;
+  for (int i = 0; i < cant; i++){
+    last = last + intervalL;
+    intervals[i] = last;
+    frequency[i] = 0;
+  }
+  println(intervals);
+}
+
+
+void calcFrequency() {
+  for (int i = 0; i < price.length; i++){
+    int j = 0;
+    boolean found = false;
+    while (j < cant && !found){
+      if (price[i] < intervals[j]){
+        found = true;
+      }
+      j++;
+    }
+    frequency[j-1] = frequency[j-1] + 1;
+    sendPureData(frequency[j-1]/10, "/slider" + str(j));
+  }
+  println(frequency);
+  maxFrequency = max(frequency);
 }

@@ -1,20 +1,222 @@
-#N canvas 53 538 798 478 10;
-#X obj 142 394 sendOSC;
-#X msg 242 336 connect 127.0.0.1 10000;
-#X msg 240 365 disconnect;
-#X obj 494 -27 dumpOSC 10001;
-#X obj 396 64 print mx;
-#X obj 475 66 print my;
-#X obj 554 69 print mean;
-#X obj 494 20 OSCroute /mx /my /mean;
-#X obj 103 183 vsl 15 128 0 100 0 0 empty empty empty 0 -9 0 10 -262144
--1 -1 8700 1;
-#X msg 106 347 send /slider1 \$1;
+#N canvas 340 29 1322 1148 10;
+#X obj 520 756 sendOSC;
+#X msg 631 707 connect 127.0.0.1 10000;
+#X msg 629 736 disconnect;
+#X obj 823 22 dumpOSC 10001;
+#X obj 61 337 vsl 15 128 0 100 0 0 empty empty empty 0 -9 0 10 -262144
+-1 -1 2850 1;
+#X obj 823 51 s msg;
+#X obj 352 -16 r msg;
+#X obj 350 11 OSCroute /mean /median /mode;
+#X obj 123 57 print mean;
+#X obj 202 59 print median;
+#X obj 308 60 print mode;
+#X obj 331 198 r msg;
+#X obj 894 56 print msg;
+#X obj 164 327 vsl 15 128 0 100 0 0 empty empty empty 0 -9 0 10 -262144
+-1 -1 4652 1;
+#X msg 59 492 send /slider1 \$1;
+#X msg 167 491 send /slider2 \$1;
+#X obj 282 326 vsl 15 128 0 100 0 0 empty empty empty 0 -9 0 10 -262144
+-1 -1 1090 1;
+#X obj 387 325 vsl 15 128 0 100 0 0 empty empty empty 0 -9 0 10 -262144
+-1 -1 1634 1;
+#X msg 282 490 send /slider3 \$1;
+#X msg 390 489 send /slider4 \$1;
+#X obj 329 221 OSCroute /slider1 /slider2 /slider3 /slider4 /slider5
+/slider6 /slider7 /slider8 /slider9 /slider10;
+#X obj 504 325 vsl 15 128 0 100 0 0 empty empty empty 0 -9 0 10 -262144
+-1 -1 1509 1;
+#X obj 609 324 vsl 15 128 0 100 0 0 empty empty empty 0 -9 0 10 -262144
+-1 -1 381 1;
+#X obj 732 321 vsl 15 128 0 100 0 0 empty empty empty 0 -9 0 10 -262144
+-1 -1 127 1;
+#X obj 838 325 vsl 15 128 0 100 0 0 empty empty empty 0 -9 0 10 -262144
+-1 -1 0 1;
+#X msg 504 489 send /slider5 \$1;
+#X msg 612 488 send /slider6 \$1;
+#X msg 727 487 send /slider7 \$1;
+#X msg 835 486 send /slider8 \$1;
+#X obj 946 321 vsl 15 128 0 100 0 0 empty empty empty 0 -9 0 10 -262144
+-1 -1 0 1;
+#X obj 1053 321 vsl 15 128 0 100 0 0 empty empty empty 0 -9 0 10 -262144
+-1 -1 0 1;
+#X msg 946 485 send /slider9 \$1;
+#X msg 1054 484 send /slider10 \$1;
+#X obj 146 172 osc~;
+#X obj 160 122 / 10;
+#X obj 42 733 dac~;
+#X obj 37 619 osc~;
+#X obj 382 841 r msg;
+#X obj 394 909 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+1;
+#X obj 42 684 *~;
+#X obj 391 871 OSCroute /bng1 /bng2 /bng3 /bng4 /bng5 /bng6 /bng7 /bng8
+/bng9 /bng10;
+#X obj 422 912 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+1;
+#X obj 455 912 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+1;
+#X obj 490 913 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+1;
+#X obj 526 915 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+1;
+#X obj 556 916 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+1;
+#X obj 590 919 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+1;
+#X obj 625 917 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+1;
+#X obj 658 918 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+1;
+#X obj 693 919 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0
+1;
+#X obj 126 735 dac~;
+#X obj 121 621 osc~;
+#X obj 126 686 *~;
+#X obj 206 735 dac~;
+#X obj 201 621 osc~;
+#X obj 206 686 *~;
+#X obj 290 737 dac~;
+#X obj 285 623 osc~;
+#X obj 290 688 *~;
+#X obj 290 580 * 8;
+#X obj 867 763 dac~;
+#X obj 862 649 osc~;
+#X obj 867 714 *~;
+#X obj 951 765 dac~;
+#X obj 946 651 osc~;
+#X obj 951 716 *~;
+#X obj 1031 765 dac~;
+#X obj 1026 651 osc~;
+#X obj 1031 716 *~;
+#X obj 1115 767 dac~;
+#X obj 1110 653 osc~;
+#X obj 1115 718 *~;
+#X obj 366 741 dac~;
+#X obj 361 627 osc~;
+#X obj 366 692 *~;
+#X obj 797 754 dac~;
+#X obj 792 640 osc~;
+#X obj 797 705 *~;
+#X obj 366 584 * 10;
+#X obj 797 597 * 12;
+#X obj 867 606 * 14;
+#X obj 951 608 * 16;
+#X obj 1031 608 * 18;
+#X obj 1115 610 * 20;
+#X obj 206 578 * 6;
+#X obj 126 578 * 4;
+#X obj 42 576 * 2;
 #X connect 1 0 0 0;
 #X connect 2 0 0 0;
-#X connect 3 0 7 0;
-#X connect 7 0 4 0;
-#X connect 7 1 5 0;
-#X connect 7 2 6 0;
-#X connect 8 0 9 0;
-#X connect 9 0 0 0;
+#X connect 3 0 5 0;
+#X connect 3 0 12 0;
+#X connect 4 0 14 0;
+#X connect 4 0 86 0;
+#X connect 6 0 7 0;
+#X connect 7 0 8 0;
+#X connect 7 0 34 0;
+#X connect 7 1 9 0;
+#X connect 7 2 10 0;
+#X connect 11 0 20 0;
+#X connect 13 0 15 0;
+#X connect 13 0 85 0;
+#X connect 14 0 0 0;
+#X connect 15 0 0 0;
+#X connect 16 0 18 0;
+#X connect 16 0 84 0;
+#X connect 17 0 19 0;
+#X connect 17 0 59 0;
+#X connect 18 0 0 0;
+#X connect 19 0 0 0;
+#X connect 20 0 4 0;
+#X connect 20 1 13 0;
+#X connect 20 2 16 0;
+#X connect 20 3 17 0;
+#X connect 20 4 21 0;
+#X connect 20 5 22 0;
+#X connect 20 6 23 0;
+#X connect 20 7 24 0;
+#X connect 20 8 29 0;
+#X connect 20 9 30 0;
+#X connect 21 0 25 0;
+#X connect 21 0 78 0;
+#X connect 22 0 26 0;
+#X connect 22 0 79 0;
+#X connect 23 0 27 0;
+#X connect 23 0 80 0;
+#X connect 24 0 28 0;
+#X connect 24 0 81 0;
+#X connect 25 0 0 0;
+#X connect 26 0 0 0;
+#X connect 27 0 0 0;
+#X connect 28 0 0 0;
+#X connect 29 0 31 0;
+#X connect 29 0 82 0;
+#X connect 30 0 32 0;
+#X connect 30 0 83 0;
+#X connect 31 0 0 0;
+#X connect 32 0 0 0;
+#X connect 34 0 33 0;
+#X connect 36 0 39 0;
+#X connect 37 0 40 0;
+#X connect 38 0 39 1;
+#X connect 39 0 35 0;
+#X connect 39 0 35 1;
+#X connect 40 0 38 0;
+#X connect 40 1 41 0;
+#X connect 40 2 42 0;
+#X connect 40 3 43 0;
+#X connect 40 4 44 0;
+#X connect 40 5 45 0;
+#X connect 40 6 46 0;
+#X connect 40 7 47 0;
+#X connect 40 8 48 0;
+#X connect 40 9 49 0;
+#X connect 41 0 52 1;
+#X connect 42 0 55 1;
+#X connect 43 0 58 1;
+#X connect 44 0 74 1;
+#X connect 45 0 77 1;
+#X connect 46 0 62 1;
+#X connect 47 0 65 1;
+#X connect 48 0 68 1;
+#X connect 49 0 71 1;
+#X connect 51 0 52 0;
+#X connect 52 0 50 0;
+#X connect 52 0 50 1;
+#X connect 54 0 55 0;
+#X connect 55 0 53 0;
+#X connect 55 0 53 1;
+#X connect 57 0 58 0;
+#X connect 58 0 56 0;
+#X connect 58 0 56 1;
+#X connect 59 0 57 0;
+#X connect 61 0 62 0;
+#X connect 62 0 60 0;
+#X connect 62 0 60 1;
+#X connect 64 0 65 0;
+#X connect 65 0 63 0;
+#X connect 65 0 63 1;
+#X connect 67 0 68 0;
+#X connect 68 0 66 0;
+#X connect 68 0 66 1;
+#X connect 70 0 71 0;
+#X connect 71 0 69 0;
+#X connect 71 0 69 1;
+#X connect 73 0 74 0;
+#X connect 74 0 72 0;
+#X connect 74 0 72 1;
+#X connect 76 0 77 0;
+#X connect 77 0 75 0;
+#X connect 77 0 75 1;
+#X connect 78 0 73 0;
+#X connect 79 0 76 0;
+#X connect 80 0 61 0;
+#X connect 81 0 64 0;
+#X connect 82 0 67 0;
+#X connect 83 0 70 0;
+#X connect 84 0 54 0;
+#X connect 85 0 51 0;
+#X connect 86 0 36 0;
