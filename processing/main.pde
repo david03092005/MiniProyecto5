@@ -17,8 +17,8 @@ float Y = 50;
 float dist = 200;
 
 void setup() {
-  fullScreen();
-  //size(1000,800);
+  //fullScreen();
+  size(1000,800);
   osc = new OscP5(this, 10000);
   pureDataAddress = new NetAddress("127.0.0.1", 10001);
   
@@ -34,6 +34,7 @@ void setup() {
   calcFrequency();
   calculateAngles();
   initializeColors();
+  particles();
 }
 
 void draw() {
@@ -46,6 +47,10 @@ void draw() {
     pieChart(300);
     drawBack();
   }
+  else if (particlesButton){
+    background(0);
+    drawParticles();
+  }
   else {
     drawButtons();
   }
@@ -55,13 +60,13 @@ void drawBack(){
   textAlign(CENTER, CENTER);
   if (overBackButton) {
     fill(0);
-    rect(800, 50, 100, 50);
+    rect(800, 50, 100, 50, 12);
     fill(255);
     text("BACK", 850, 75);
   } 
   else {
     fill(255);
-    rect(800, 50, 100, 50);
+    rect(800, 50, 100, 50, 12);
     fill(0);
     text("BACK", 850, 75);
   }
@@ -69,30 +74,46 @@ void drawBack(){
 
 void drawButtons(){
   textAlign(CENTER, CENTER);
+  float startX = (width / 2) - (X + dist) * 1;
   if (overPriceButton) {
     fill(0);
-    rect(posX, posY, X, Y);
+    rect(startX, height / 2, X, Y, 12);
     fill(255);
-    text("PRICE", posX + (X/2), posY + (Y/2));
+    text("PRICE", startX + (X/2), height / 2 + Y / 2);
   } 
   else {
     fill(255);
-    rect(posX, posY, X, Y);
+    rect(startX, height / 2, X, Y, 12);
     fill(0);
-    text("PRICE", posX + (X/2), posY + (Y/2));
+    text("PRICE", startX + (X/2), height / 2 + Y / 2);
   }
-  textAlign(CENTER, CENTER);
+  //textAlign(CENTER, CENTER);
+  startX += X + dist - 40;
   if (overPieButton) {
     fill(0);
-    rect(posX + dist, posY, X, Y);
+    rect(startX, height / 2, X, Y, 12);
     fill(255);
-    text("CAKE", posX + dist + (X/2), posY + (Y/2));
+    text("CAKE",  startX + (X/2), height / 2 + Y / 2);
   } 
   else {
     fill(255);
-    rect(posX + dist, posY, X, Y);
+    rect(startX, height / 2, X, Y, 12);
     fill(0);
-    text("CAKE", posX + dist + (X/2), posY + (Y/2));
+    text("CAKE", startX + (X/2), height / 2 + Y / 2);
+  }
+  //textAlign(CENTER, CENTER);
+  startX += X + dist - 40;
+  if (overParticlesButton) {
+    fill(0);
+    rect(startX, height / 2, X, Y, 12);
+    fill(255);
+    text("PARTICLES", startX + (X/2), height / 2 + Y / 2);
+  } 
+  else {
+    fill(255);
+    rect(startX, height / 2, X, Y, 12);
+    fill(0);
+    text("PARTICLES", startX + (X/2), height / 2 + Y / 2);
   }
 }
 
@@ -104,6 +125,7 @@ void sendPureData(float value, String route) {
 
 void oscEvent(OscMessage msg) {
   slidersIn(msg);
+  pieceIn(msg);
 }
 
 void slidersIn(OscMessage msg) {
@@ -118,6 +140,16 @@ void slidersIn(OscMessage msg) {
       
       // Actualiza la frecuencia de la barra específica
       frequency[i - 1] = newFrequency;
+    }
+  }
+}
+
+void pieceIn(OscMessage msg){
+  for (int i = 1; i <= cant; i++) {
+    if (msg.checkAddrPattern("/Piece" + str(i))) {
+      int sizePiece = msg.get(0).intValue();
+      println(sizePiece);
+      adjustPieceSize(i - 1, sizePiece);
     }
   }
 }

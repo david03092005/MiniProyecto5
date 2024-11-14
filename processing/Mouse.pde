@@ -10,12 +10,21 @@ void mousePressed() {
       pieButton = false;
     }
   }
+  else if(particlesButton){
+    if (overBackButton){
+      particlesButton = false;
+    }
+    newParticle();
+  }
   else{
     if (overPriceButton){
       priceButton = true;
     }
     else if(overPieButton){
       pieButton = true;
+    }
+    else if(overParticlesButton){
+      particlesButton = true;
     }
   }
 }
@@ -25,9 +34,10 @@ void mouseDragged() {
 }
 
 void mouseMoved(){
-  checkButtons();
+  checkPrice();
   checkBack();
   checkPie();
+  checkParticles();
 }
 
 void mouseReleased() {
@@ -50,15 +60,6 @@ void moveBarPrice() {
 }
 
 
-void checkButtons(){
-  if (mouseX > posX && mouseX < posX + X && mouseY > posY && mouseY < posY + Y) {
-    overPriceButton = true; 
-  }
-  else {
-    overPriceButton = false;
-  }
-}
-
 void checkBack(){
   if (mouseX > 800 && mouseX < 900 && mouseY > 50 && mouseY < 100) {
     overBackButton = true; 
@@ -68,12 +69,34 @@ void checkBack(){
   }
 }
 
+
 void checkPie(){
-  if (mouseX > posX + dist && mouseX < posX + dist + X && mouseY > posY && mouseY < posY + Y) {
+  float startX = (width / 2) - (X + dist) * 1 + X + dist - 40;
+  if (mouseX > startX && mouseX < startX + X && mouseY > height / 2 && mouseY < (height / 2) + Y) {
     overPieButton = true; 
-  }
+  } 
   else {
     overPieButton = false;
+  }
+}
+
+void checkPrice(){
+  float startX = (width / 2) - (X + dist) * 1;
+  if (mouseX > startX && mouseX < startX + X && mouseY > height / 2 && mouseY < (height / 2) + Y) {
+    overPriceButton = true; 
+  } 
+  else {
+    overPriceButton = false;
+  }
+}
+
+
+void checkParticles() {
+  float startX = (width / 2) - (X + dist) * 1 + (X + dist - 40)*2;
+  if (mouseX > startX && mouseX < startX + X && mouseY > height / 2 && mouseY < (height / 2) + Y) {
+    overParticlesButton = true; 
+  } else {
+    overParticlesButton = false;
   }
 }
 
@@ -106,8 +129,12 @@ void pressPie(){
     if (key == CODED) {
       if (keyCode == UP) {
         adjustment = 1; // Aumentar tamaño del pedazo
+        sendPureData(0.0, "/Piece" + (selectedPiece + 1));
+        sendPureData(angles[selectedPiece], "/note" + (selectedPiece + 1));
       } else if (keyCode == DOWN) {
         adjustment = -1; // Disminuir tamaño del pedazo
+        sendPureData(1.0, "/Piece" + (selectedPiece + 1));
+        sendPureData(angles[selectedPiece], "/note" + (selectedPiece + 1));
       }
     }
 

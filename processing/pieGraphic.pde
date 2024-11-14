@@ -1,7 +1,7 @@
 HashMap<String, Integer> phoneBrands;
 int selectedPiece = -1;
-final int MIN_ANGLE = 5;
-final int MAX_ANGLE = 360;
+int MIN_ANGLE = 5;
+int MAX_ANGLE = 360;
 color[] pastelColors;
 String[] brandNames;
 float[] angles;
@@ -145,7 +145,7 @@ void drawLegend() {
   for (int i = 0; i < brandNames.length; i++) {
     fill(pastelColors[i]);
     rect(x, y + i * 20, boxSize, boxSize); // Dibujar cajita de color
-    fill(255);
-    text(brandNames[i], x + boxSize + 5, y + i * 20 + boxSize / 2); // Mostrar nombre de la marca al lado
+    fill(0);
+    text(brandNames[i], x + boxSize + 25, y + i * 20 + boxSize / 2); // Mostrar nombre de la marca al lado
   }
 }
