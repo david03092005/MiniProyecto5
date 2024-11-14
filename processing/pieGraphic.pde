@@ -145,7 +145,7 @@ void drawLegend() {
   for (int i = 0; i < brandNames.length; i++) {
     fill(pastelColors[i]);
     rect(x, y + i * 20, boxSize, boxSize); // Dibujar cajita de color
-    fill(0);
+    fill(255);
     text(brandNames[i], x + boxSize + 25, y + i * 20 + boxSize / 2); // Mostrar nombre de la marca al lado
   }
 }

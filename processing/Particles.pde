@@ -85,6 +85,11 @@ void particles() {
   for (int i = 0; i < numParticlesL; i++) {
     particles.add(new Particle(random(width/2), random(height), random(-5, 5), random(-5, 5)));
   }
+  float total = (numParticlesR + numParticlesL);
+  float pR = numParticlesR / total;
+  float pL = numParticlesL / total;
+  sendPureData(pR, "/Right");
+  sendPureData(pL, "/Left");
 }
 
 void drawParticles() {
@@ -118,7 +123,6 @@ void drawParticles() {
 }
 
 void updateLineColorGradually() {
-  // Gradualmente ajustar el color de la línea hacia el color objetivo
   float easing = 0.05;
   lineR += (targetLineR - lineR) * easing;
   lineG += (targetLineG - lineG) * easing;

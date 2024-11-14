@@ -17,8 +17,8 @@ float Y = 50;
 float dist = 200;
 
 void setup() {
-  //fullScreen();
-  size(1000,800);
+  fullScreen();
+  //size(1000,800);
   osc = new OscP5(this, 10000);
   pureDataAddress = new NetAddress("127.0.0.1", 10001);
   
@@ -38,7 +38,7 @@ void setup() {
 }
 
 void draw() {
-  background(255);
+  background(0);
   if (priceButton){
     drawBarChart();
     drawBack();
@@ -48,8 +48,8 @@ void draw() {
     drawBack();
   }
   else if (particlesButton){
-    background(0);
     drawParticles();
+    drawBack();
   }
   else {
     drawButtons();
@@ -59,7 +59,7 @@ void draw() {
 void drawBack(){
   textAlign(CENTER, CENTER);
   if (overBackButton) {
-    fill(0);
+    fill(96, 204, 144);
     rect(800, 50, 100, 50, 12);
     fill(255);
     text("BACK", 850, 75);
@@ -76,7 +76,7 @@ void drawButtons(){
   textAlign(CENTER, CENTER);
   float startX = (width / 2) - (X + dist) * 1;
   if (overPriceButton) {
-    fill(0);
+    fill(255, 127, 80);
     rect(startX, height / 2, X, Y, 12);
     fill(255);
     text("PRICE", startX + (X/2), height / 2 + Y / 2);
@@ -90,7 +90,7 @@ void drawButtons(){
   //textAlign(CENTER, CENTER);
   startX += X + dist - 40;
   if (overPieButton) {
-    fill(0);
+    fill(107, 142, 35);
     rect(startX, height / 2, X, Y, 12);
     fill(255);
     text("CAKE",  startX + (X/2), height / 2 + Y / 2);
@@ -104,7 +104,7 @@ void drawButtons(){
   //textAlign(CENTER, CENTER);
   startX += X + dist - 40;
   if (overParticlesButton) {
-    fill(0);
+    fill(68, 53, 120);
     rect(startX, height / 2, X, Y, 12);
     fill(255);
     text("PARTICLES", startX + (X/2), height / 2 + Y / 2);

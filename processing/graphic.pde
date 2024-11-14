@@ -13,11 +13,13 @@ boolean overPriceButton = false;
 boolean overBackButton = false;
 
 void drawBarChart() {
-  background(255);
+  background(0);
   if (priceButton) {
     measures = calcMeasures();
     drawMeasureBoxes(measures[0], measures[1], measures[2]); 
     // Dibujar ejes
+    stroke(255);
+    fill(255);
     line(margin, he - margin, wi + margin, he - margin); // Eje X
     line(margin, he - margin, margin, margin - 30); // Eje Y
     
@@ -43,7 +45,7 @@ void drawBarChart() {
       rect(x - barWidth / 2, he - margin - barHeight, barWidth, barHeight);
       
       // Etiquetas del eje X (intervalos)
-      fill(0);
+      fill(255);
       text(int(intervals[i]), x, he - margin + 10);
     }
     
