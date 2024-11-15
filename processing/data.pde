@@ -27,12 +27,12 @@ void processData() {
 
 
 float[] calcMeasures(){
-  // Calcular medidas centrales
+  
   float mean = calculateMean();
   float median = calculateMedian();
   float mode = calculateMode();
   
-  // Imprimir los resultados
+  
   println("Media: " + mean);
   println("Mediana: " + median);
   println("Moda: " + mode);

@@ -4,7 +4,7 @@ int numParticlesL = 0;
 boolean particlesButton = false;
 boolean overParticlesButton = false;
 
-// Variables para el color progresivo de la línea central
+
 float lineR = 150, lineG = 150, lineB = 255;
 float targetLineR = lineR, targetLineG = lineG, targetLineB = lineB;
 
@@ -12,66 +12,62 @@ class Particle {
   float x, y;
   float vx, vy;
   float size;
-  float r, g, b; // Componentes de color de la bola
+  float r, g, b;
 
   Particle(float x, float y, float vx, float vy) {
     this.x = x;
     this.y = y;
     this.vx = vx;
     this.vy = vy;
-    this.size = random(10, 15); // Tamaño inicial aleatorio de cada bola
-    // Color inicial aleatorio de cada bola
+    this.size = random(10, 15);
     this.r = random(10, 255);
     this.g = random(10, 255);
     this.b = random(10, 255);
   }
 
+
   void update() {
     x += vx;
     y += vy;
 
-    // Rebotar en los bordes de la pantalla
     if (x > width || x < 0) vx *= -1;
     if (y > height || y < 0) vy *= -1;
 
-    // Rebotar en la división central
     if (x < width / 2 && x + vx >= width / 2) {
       vx *= -1;
       x = width / 2 - 1;
-      changeColor(); // Cambiar color al golpear la línea
-      updateLineColor(); // Cambiar color de la línea
+      changeColor();
+      updateLineColor();
     } else if (x > width / 2 && x + vx <= width / 2) {
       vx *= -1;
       x = width / 2 + 1;
-      changeColor(); // Cambiar color al golpear la línea
-      updateLineColor(); // Cambiar color de la línea
+      changeColor();
+      updateLineColor();
     }
   }
 
-  // Método para cambiar el color de la bola
+
   void changeColor() {
-    // Progresivamente cambiar el color aleatoriamente
     r = (r + random(20, 50)) % 255;
     g = (g + random(20, 50)) % 255;
     b = (b + random(20, 50)) % 255;
   }
-  
-  // Cambiar el color objetivo de la línea central al colisionar
+
+
   void updateLineColor() {
     targetLineR = random(10, 255);
     targetLineG = random(10, 255);
     targetLineB = random(10, 255);
   }
 
+
   void display() {
-    // Efecto de brillo alrededor de la bola
     for (float s = size * 1.5; s > size; s -= 2) {
       noStroke();
       fill(r, g, b, 50);
       ellipse(x, y, s, s);
     }
 
-    // Bola principal
     fill(r, g, b);
     noStroke();
     ellipse(x, y, size, size);
@@ -97,16 +93,13 @@ void drawParticles() {
     p.update();
     p.display();
   }
-  // Actualizar el color progresivo de la línea central
   updateLineColorGradually();
 
-  // Dibujar línea central
   float lineWidth = 6;
   stroke(lineR, lineG, lineB);
   strokeWeight(lineWidth);
   line(width / 2, 0, width / 2, height);
 
-  // Añadir un brillo suave alrededor de la línea
   for (int offset = 10; offset <= 40; offset += 10) {
     stroke(lineR, lineG, lineB, 255 - offset * 4);
     strokeWeight(offset / 3);

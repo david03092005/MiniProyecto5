@@ -24,7 +24,6 @@ void calculateAngles() {
   }
 }
 
-
 void initializeColors() {
   pastelColors = new color[angles.length];
   for (int i = 0; i < pastelColors.length; i++) {
@@ -59,7 +58,7 @@ void pieChart(float diameter) {
 
     fill(50);
     textSize(12);
-    text(phoneBrands.get(brandNames[i]), labelX, labelY); // Mostrar solo el número
+    text(phoneBrands.get(brandNames[i]), labelX, labelY);
     
     lastAngle = stopAngle;
   }
@@ -67,30 +66,24 @@ void pieChart(float diameter) {
 
 
 void adjustPieceSize(int selectedPiece, float adjustment) {
-  // Calculamos la suma total de ángulos antes del ajuste
   float totalAngle = 0;
   for (float angle : angles) {
     totalAngle += angle;
   }
   
-  // Ajustamos el tamaño del pedazo seleccionado
   angles[selectedPiece] += adjustment;
 
-  // Verificamos que el tamaño del pedazo seleccionado esté dentro del rango permitido
   if (angles[selectedPiece] < MIN_ANGLE) {
     angles[selectedPiece] = MIN_ANGLE;
   } else if (angles[selectedPiece] > MAX_ANGLE) {
     angles[selectedPiece] = MAX_ANGLE;
   }
 
-  // Ahora ajustamos los pedazos adyacentes proporcionalmente
   int prevPiece = (selectedPiece - 1 + angles.length) % angles.length;
   int nextPiece = (selectedPiece + 1) % angles.length;
 
-  // Ajustamos el valor proporcional entre los pedazos adyacentes
   float adjustmentForAdjacent = adjustment / 2.0;
 
-  // Evitamos que los pedazos adyacentes sean menores que el mínimo
   if (angles[prevPiece] - adjustmentForAdjacent < MIN_ANGLE) {
     adjustmentForAdjacent = angles[prevPiece] - MIN_ANGLE;
   }
@@ -101,7 +94,6 @@ void adjustPieceSize(int selectedPiece, float adjustment) {
   angles[prevPiece] -= adjustmentForAdjacent;
   angles[nextPiece] -= adjustmentForAdjacent;
 
-  // Aseguramos que los pedazos adyacentes no sean más pequeños que el ángulo mínimo
   if (angles[prevPiece] < MIN_ANGLE) {
     angles[prevPiece] = MIN_ANGLE;
   }
@@ -109,19 +101,16 @@ void adjustPieceSize(int selectedPiece, float adjustment) {
     angles[nextPiece] = MIN_ANGLE;
   }
 
-  // Aseguramos que la suma total de los ángulos no se pase de 360
   totalAngle = 0;
   for (float angle : angles) {
     totalAngle += angle;
   }
 
   if (totalAngle > 360) {
-    // Si la suma es mayor a 360, ajustamos el valor
     float excess = totalAngle - 360;
     angles[selectedPiece] -= excess;
   }
 
-  // Actualizamos las marcas de acuerdo al ajuste realizado
   adjustment = adjustment * 5;
   updateBrandValues(selectedPiece, adjustment);
   updateBrandValues(prevPiece, -adjustment / 2);
@@ -132,20 +121,20 @@ void adjustPieceSize(int selectedPiece, float adjustment) {
 void updateBrandValues(int pieceIndex, float adjustment) {
   String brand = brandNames[pieceIndex];
   int currentValue = phoneBrands.get(brand);
-  phoneBrands.put(brand, max(0, currentValue + (int) adjustment));  // Asegurarse de que no se reduzca a un valor negativo
+  phoneBrands.put(brand, max(0, currentValue + (int) adjustment));
 }
 
 
 void drawLegend() {
-  float x = 500;  // Posición de inicio en x para la leyenda
-  float y = 40;   // Posición de inicio en y para la leyenda
-  float boxSize = 15; // Tamaño de las cajitas de color
+  float x = 50;
+  float y = 40;
+  float boxSize = 15;
   
   textSize(12);
   for (int i = 0; i < brandNames.length; i++) {
     fill(pastelColors[i]);
-    rect(x, y + i * 20, boxSize, boxSize); // Dibujar cajita de color
+    rect(x, y + i * 20, boxSize, boxSize);
     fill(255);
-    text(brandNames[i], x + boxSize + 25, y + i * 20 + boxSize / 2); // Mostrar nombre de la marca al lado
+    text(brandNames[i], x + boxSize + 25, y + i * 20 + boxSize / 2);
   }
 }

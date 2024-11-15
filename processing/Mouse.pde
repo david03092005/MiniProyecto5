@@ -42,7 +42,7 @@ void mouseMoved(){
 
 void mouseReleased() {
   sendPureData(0, "/bng" + str(selectedBar + 1));
-  selectedBar = -1; // Desseleccionar barra al soltar el mouse
+  selectedBar = -1;
 }
 
 
@@ -51,10 +51,10 @@ void moveBarPrice() {
   if (selectedBar != -1) {
     int margin = 100;
       
-    // Ajustar frecuencia de la barra seleccionada según la posición del mouse
+    
     float newFrequency = map(he - mouseY, 0, he - 2 * margin, 0, limit);
-    newFrequency = constrain(newFrequency, 0, limit); // Limitar a valores válidos
-    frequency[selectedBar] = int(newFrequency); // Actualizar frecuencia
+    newFrequency = constrain(newFrequency, 0, limit);
+    frequency[selectedBar] = int(newFrequency);
     sendPureData(newFrequency/10, "/slider" + str(selectedBar + 1));
   }
 }
@@ -106,7 +106,6 @@ void takeBarPrice(){
     float barHeight = map(frequency[i], 0, maxFrequency, 0, he - 2 * margin);
     float barTop = he - margin - barHeight;
       
-    // Comprobar si el clic está dentro de la barra
     if (mouseX > x - barWidth / 2 && mouseX < x + barWidth / 2 && mouseY > barTop && mouseY < he - margin + 10) {
       selectedBar = i;
       sendPureData(1, "/bng" + str(selectedBar + 1));
@@ -123,16 +122,15 @@ void keyPressed() {
 
 void pressPie(){
   if (selectedPiece != -1) {
-    // Usar las flechas para aumentar/disminuir el tamaño
     float adjustment = 0;
 
     if (key == CODED) {
       if (keyCode == UP) {
-        adjustment = 1; // Aumentar tamaño del pedazo
+        adjustment = 1;
         sendPureData(0.0, "/Piece" + (selectedPiece + 1));
         sendPureData(angles[selectedPiece], "/note" + (selectedPiece + 1));
       } else if (keyCode == DOWN) {
-        adjustment = -1; // Disminuir tamaño del pedazo
+        adjustment = -1;
         sendPureData(1.0, "/Piece" + (selectedPiece + 1));
         sendPureData(angles[selectedPiece], "/note" + (selectedPiece + 1));
       }

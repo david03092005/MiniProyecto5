@@ -2,11 +2,9 @@ import oscP5.*;
 import netP5.*;
 import java.util.HashMap;
 
-// Variables para la comunicación
 OscP5 osc;
 NetAddress pureDataAddress;
 
-// Varaibles de datos
 Table data;
 float[] price;
 
@@ -17,8 +15,8 @@ float Y = 50;
 float dist = 200;
 
 void setup() {
-  fullScreen();
-  //size(1000,800);
+  //fullScreen();
+  size(900,600);
   osc = new OscP5(this, 10000);
   pureDataAddress = new NetAddress("127.0.0.1", 10001);
   
@@ -87,7 +85,6 @@ void drawButtons(){
     fill(0);
     text("PRICE", startX + (X/2), height / 2 + Y / 2);
   }
-  //textAlign(CENTER, CENTER);
   startX += X + dist - 40;
   if (overPieButton) {
     fill(107, 142, 35);
@@ -101,7 +98,6 @@ void drawButtons(){
     fill(0);
     text("CAKE", startX + (X/2), height / 2 + Y / 2);
   }
-  //textAlign(CENTER, CENTER);
   startX += X + dist - 40;
   if (overParticlesButton) {
     fill(68, 53, 120);
@@ -118,8 +114,8 @@ void drawButtons(){
 }
 
 void sendPureData(float value, String route) {
-  OscMessage msg = new OscMessage(route); // Define la ruta de Pure Data
-  msg.add(value); // Añade el valor como argumento del mensaje
+  OscMessage msg = new OscMessage(route);
+  msg.add(value);
   osc.send(msg, pureDataAddress);
 }
 
@@ -131,14 +127,11 @@ void oscEvent(OscMessage msg) {
 void slidersIn(OscMessage msg) {
   for (int i = 1; i <= cant; i++) {
     if (msg.checkAddrPattern("/slider" + str(i))) {
-      // Lee el valor del slider (debe estar en un rango adecuado)
       float sliderVal = msg.get(0).floatValue();
       println(sliderVal);
       println(i);
-      // Mapea el valor del slider a un rango adecuado para la frecuencia de la barra
-      int newFrequency = (int) map(sliderVal, 0, 99, -10, 990); // Ajusta el rango según tu necesidad
+      int newFrequency = (int) map(sliderVal, 0, 99, -10, 990);
       
-      // Actualiza la frecuencia de la barra específica
       frequency[i - 1] = newFrequency;
     }
   }
